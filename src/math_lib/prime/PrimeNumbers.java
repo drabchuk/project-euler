@@ -1,20 +1,24 @@
-package problem_7;
+package math_lib.prime;
 
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
-public class Problem7 {
+public class PrimeNumbers {
 
-    public static final int POSITION = 10001;
-
-    public static void main(String[] args) {
-        System.out.println(solve());
+    public static List<Integer> primeNumbers(int to) {
+        int sieveSize = sieveSize(to);
+        boolean[] sieve = createSieve(sieveSize);
+        List<Integer> primes = new LinkedList<>();
+        for (int i = 2; i <= to; i++) {
+            if (sieve[i]) {
+                primes.add(i);
+            }
+        }
+        return primes;
     }
 
-    private static long solve() {
-        return primeNumberByPosition(POSITION);
-    }
-
-    private static long primeNumberByPosition(int position) {
+    public static long primeNumberByPosition(int position) {
         int sieveSize = sieveSize(position);
         boolean[] sieve = createSieve(sieveSize);
         int counter = 0;
@@ -28,7 +32,7 @@ public class Problem7 {
         return prime;
     }
 
-    private static boolean[] createSieve(int length) {
+    public static boolean[] createSieve(int length) {
         boolean[] sieve = new boolean[length + 1];
         Arrays.fill(sieve, true);
         sieve[0] = false; sieve[1] = false; sieve[2] = true;
@@ -43,7 +47,8 @@ public class Problem7 {
         return sieve;
     }
 
-    private static int sieveSize(int position) {
+    public static int sieveSize(int position) {
+        //suppose to implement n/log(n)
         return position * ((int) Math.log(position) + 2);
     }
 
